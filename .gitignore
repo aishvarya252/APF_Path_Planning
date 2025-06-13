@@ -1,0 +1,15 @@
+hybrid/
+hybrid(new)/
+singleAPF(new)/
+singleAstar/
+singleAstar(new)/
+addition/
+result/
+
+#large files
+*.MP4
+*.dll
+*.lib
+*.pyd
+venv/
+__pycache__/

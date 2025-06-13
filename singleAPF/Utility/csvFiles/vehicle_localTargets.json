@@ -1,0 +1,54 @@
+{
+    "vehicles": [
+    {
+        "vehicle_id": "12",
+        "local_targets": [[1187, 642]],
+        "final_target": [1253.6915,678.9365]
+    },
+    {
+        "vehicle_id": "6",
+        "local_targets": [[1375,585],[1305,721]],
+        "final_target": [1210.476,773.0160000000001]
+    },
+    {
+        "vehicle_id": "5",
+        "local_targets": [[1758, 1099]],
+        "final_target": [1584.2424999999998,976.3325]
+    },
+    {
+        "vehicle_id": "7",
+        "local_targets": [[1373,576],[1320,693],[1262,639]],
+        "final_target": [1224.7615,605.4035]
+    },
+    {
+        "vehicle_id": "10",
+        "local_targets": [[1127, 736],[955, 646],[777, 561]],
+        "final_target": [731.212,522.578]
+    },
+    {
+        "vehicle_id": "8",
+        "local_targets": [[1377,717],[1397, 886]],
+        "final_target": [1374.524,1352.8195]
+    },
+    {
+        "vehicle_id": "4",
+        "local_targets": [[1362,420],[1369, 625],[1383,789]],
+        "final_target": [1428.9585,891.1855]
+    },
+    {
+        "vehicle_id": "13",
+        "local_targets": [[1310, 827],[1391,871],[1417,917]],
+        "final_target": [1422.4245,971.946]
+    },
+    {
+        "vehicle_id": "11",
+        "local_targets": [[762, 576],[492,432],[222,283]],
+        "final_target": [34.0105,151.017]
+    },
+    {
+        "vehicle_id": "9",
+        "local_targets": [[1394, 1057]],
+        "final_target": [1378.0555,1453.832]
+    }
+    ]
+}
