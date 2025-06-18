@@ -1,0 +1,345 @@
+Vehicle ID: 12 | Iteration: 33
+
+================================================================================
+Vehicle ID: 12 | Iteration: 27
+
+================================================================================
+Vehicle ID: 6 | Iteration: 27
+
+================================================================================
+Vehicle ID: 5 | Iteration: 27
+
+================================================================================
+Vehicle ID: 7 | Iteration: 27
+
+================================================================================
+Vehicle ID: 8 | Iteration: 27
+
+================================================================================
+Vehicle ID: 4 | Iteration: 27
+
+================================================================================
+Vehicle ID: 13 | Iteration: 27
+
+================================================================================
+Vehicle ID: 11 | Iteration: 27
+
+================================================================================
+Vehicle ID: 9 | Iteration: 27
+
+================================================================================
+Vehicle ID: 12 | Iteration: 27
+============================================================
+🚗 [ITERATION START] Vehicle ID: 12 | Index: 0 | Iteration: 27
+🔹 Rear Position     : [1153.9789524658295, 625.5184795599368]
+🔹 Front Position    : [1156.6422001150875, 626.8994634513513]
+🔹 Orientation (rad) : 0.4784
+🔹 Target Position   : [1187, 642]
+🔹 Distance to Target: 36.91
+============================================================
+  🎯 Vehicle ID 12 pursuing: [1187, 642]
+  → [Attraction Force] F_att = [35.81399023822223, 17.814547516468743]
+  → [Lane Keeping Force] F_lane = [0, 0]
+  → [Vehicle Repulsion Force] F_veh = [0, 0]
+  🚫 Boundary Repulsion Force: (0.29, -0.55)
+  ⇒ [Total Force] F_total = [36.10040593968277, 17.26219064352378]
+  ⇒ [Force Direction] 25.56°
+  ⇒ [Steering Angle] -1.85°
+✅ [ITERATION END] Vehicle ID: 12 | Iteration 27
+------------------------------------------------------------
+🔄 [Vehicle Update]
+  Rear Velocity : [35.50995968359305, 18.41311389389628, -0.4312373424562435]
+  New Rear Pos  : [1155.7544504500092, 626.4391352546317]
+  New Front Pos : [1158.4474740099108, 627.7626942192563]
+  New Orientation: 0.4568 rad
+  Velocity (Front Axle) = 40.020915666808
+  Rear-Front Diff Check = 0.0007, Formula Diff = 0.0000
+🧩 Vehicle 12 Corners (C1 to C4):
+  C1: (1158.46, 620.93)
+  C2: (1153.05, 631.95)
+  C3: (1178.20, 644.31)
+  C4: (1183.62, 633.29)
+📏 Min distance to map (vehicle 12): 27.80
+  🔸 Closest point on vehicle: (1193.733, 607.283)
+  🔸 Closest point on polygon: (1181.4696092789911, 632.2353290726184)
+================================================================================
+Vehicle ID: 6 | Iteration: 27
+============================================================
+🚗 [ITERATION START] Vehicle ID: 6 | Index: 1 | Iteration: 27
+🔹 Rear Position     : [1361.7194113144822, 415.15636746966976]
+🔹 Front Position    : [1361.9973606070193, 418.1434639264053]
+🔹 Orientation (rad) : 1.4780
+🔹 Target Position   : [1375, 585]
+🔹 Distance to Target: 170.36
+============================================================
+  🎯 Vehicle ID 6 pursuing: [1375, 585]
+  → [Attraction Force] F_att = [3.1076608722098253, 39.879097832114205]
+  → [Lane Keeping Force] F_lane = [0, 0]
+  → [Vehicle Repulsion Force] F_veh = [0, 0]
+  🚫 Boundary Repulsion Force: (0.58, -0.01)
+  ⇒ [Total Force] F_total = [3.689693839155705, 39.872178080199305]
+  ⇒ [Force Direction] 84.71°
+  ⇒ [Steering Angle] 0.03°
+✅ [ITERATION END] Vehicle ID: 6 | Iteration 27
+------------------------------------------------------------
+🔄 [Vehicle Update]
+  Rear Velocity : [3.705990350230973, 39.82795043087197, 0.006767503840776888]
+  New Rear Pos  : [1361.9047108319937, 417.14776499121336]
+  New Front Pos : [1362.1816493489828, 420.1349553246685]
+  New Orientation: 1.4784 rad
+  Velocity (Front Axle) = 40.000005152399346
+  Rear-Front Diff Check = 0.0000, Formula Diff = -0.0000
+🧩 Vehicle 6 Corners (C1 to C4):
+  C1: (1368.02, 416.58)
+  C2: (1355.79, 417.71)
+  C3: (1358.38, 445.62)
+  C4: (1370.61, 444.49)
+📏 Min distance to map (vehicle 6): 29.47
+  🔸 Closest point on vehicle: (1355.7903628035522, 417.7146182165168)
+  🔸 Closest point on polygon: (1326.3223470119337, 418.06496153086954)
+================================================================================
+Vehicle ID: 5 | Iteration: 27
+============================================================
+🚗 [ITERATION START] Vehicle ID: 5 | Index: 2 | Iteration: 27
+🔹 Rear Position     : [1914.8759893116535, 1238.416101506259]
+🔹 Front Position    : [1914.8467796189775, 1235.4162434174868]
+🔹 Orientation (rad) : -1.5805
+🔹 Target Position   : [1758, 1099]
+🔹 Distance to Target: 209.87
+============================================================
+  🎯 Vehicle ID 5 pursuing: [1758, 1099]
+  → [Attraction Force] F_att = [-30.181577682596572, -26.25018797245819]
+  → [Lane Keeping Force] F_lane = [np.float64(29.906258957307823), 0]
+  → [Vehicle Repulsion Force] F_veh = [0, 0]
+  🚫 Boundary Repulsion Force: (-0.00, -0.01)
+  ⇒ [Total Force] F_total = [np.float64(-0.27532493087685483), -26.256941169603195]
+  ⇒ [Force Direction] -90.60°
+  ⇒ [Steering Angle] -0.04°
+✅ [ITERATION END] Vehicle ID: 5 | Iteration 27
+------------------------------------------------------------
+🔄 [Vehicle Update]
+  Rear Velocity : [-0.38946253210426096, -39.99810394176313, -0.009982597193390614]
+  New Rear Pos  : [1914.8565161850483, 1236.416196309171]
+  New Front Pos : [1914.8258091765397, 1233.4163530929673]
+  New Orientation: -1.5810 rad
+  Velocity (Front Axle) = 40.00001121087619
+  Rear-Front Diff Check = 0.0000, Formula Diff = 0.0000
+🧩 Vehicle 5 Corners (C1 to C4):
+  C1: (1908.72, 1236.48)
+  C2: (1921.00, 1236.35)
+  C3: (1920.71, 1208.33)
+  C4: (1908.43, 1208.45)
+📏 Min distance to map (vehicle 5): 274.10
+  🔸 Closest point on vehicle: (1908.7162699428006, 1236.4790491253948)
+  🔸 Closest point on polygon: (1908.968141445578, 1510.5768275050846)
+================================================================================
+Vehicle ID: 7 | Iteration: 27
+============================================================
+🚗 [ITERATION START] Vehicle ID: 7 | Index: 3 | Iteration: 27
+🔹 Rear Position     : [1373.3149462119518, 476.9180909771363]
+🔹 Front Position    : [1373.3288714425385, 479.9180586924163]
+🔹 Orientation (rad) : 1.5662
+🔹 Target Position   : [1373, 576]
+🔹 Distance to Target: 99.08
+============================================================
+  🎯 Vehicle ID 7 pursuing: [1373, 576]
+  → [Attraction Force] F_att = [-0.13691210298118092, 39.99976568776444]
+  → [Lane Keeping Force] F_lane = [0, 0]
+  → [Vehicle Repulsion Force] F_veh = [0, 0]
+  🚫 Boundary Repulsion Force: (0.31, -0.00)
+  ⇒ [Total Force] F_total = [0.17640941882780378, 39.996040628663586]
+  ⇒ [Force Direction] 89.75°
+  ⇒ [Steering Angle] 0.01°
+✅ [ITERATION END] Vehicle ID: 7 | Iteration 27
+------------------------------------------------------------
+🔄 [Vehicle Update]
+  Rear Velocity : [0.1856697389977864, 39.999569082029126, 0.003081555881216008]
+  New Rear Pos  : [1373.3242296989017, 478.9180694312377]
+  New Front Pos : [1373.337692700924, 481.9180392579587]
+  New Orientation: 1.5663 rad
+  Velocity (Front Axle) = 40.00000106829848
+  Rear-Front Diff Check = 0.0000, Formula Diff = -0.0000
+🧩 Vehicle 7 Corners (C1 to C4):
+  C1: (1379.46, 478.89)
+  C2: (1367.18, 478.95)
+  C3: (1367.31, 506.97)
+  C4: (1379.59, 506.92)
+📏 Min distance to map (vehicle 7): 39.93
+  🔸 Closest point on vehicle: (1367.3095035074284, 506.9732454328877)
+  🔸 Closest point on polygon: (1327.3850149875093, 507.44790506829776)
+================================================================================
+Vehicle ID: 8 | Iteration: 27
+============================================================
+🚗 [ITERATION START] Vehicle ID: 8 | Index: 4 | Iteration: 27
+🔹 Rear Position     : [1377.8495727834465, 561.3053348900908]
+🔹 Front Position    : [1377.811573539816, 564.3050942235573]
+🔹 Orientation (rad) : 1.5835
+🔹 Target Position   : [1377, 717]
+🔹 Distance to Target: 155.70
+============================================================
+  🎯 Vehicle ID 8 pursuing: [1377, 717]
+  → [Attraction Force] F_att = [-0.2125970274560424, 39.99943502730903]
+  → [Lane Keeping Force] F_lane = [0, 0]
+  → [Vehicle Repulsion Force] F_veh = [0, 0]
+  🚫 Boundary Repulsion Force: (-0.29, 0.01)
+  ⇒ [Total Force] F_total = [-0.5011251410701792, 40.01351460603382]
+  ⇒ [Force Direction] 90.72°
+  ⇒ [Steering Angle] -0.01°
+✅ [ITERATION END] Vehicle ID: 8 | Iteration 27
+------------------------------------------------------------
+🔄 [Vehicle Update]
+  Rear Velocity : [-0.506656581708278, 39.99679111014047, -0.0019134779564804717]
+  New Rear Pos  : [1377.8242399543612, 563.3051744455978]
+  New Front Pos : [1377.786527709401, 566.3049374143941]
+  New Orientation: 1.5834 rad
+  Velocity (Front Axle) = 40.00000041190726
+  Rear-Front Diff Check = 0.0000, Formula Diff = -0.0000
+🧩 Vehicle 8 Corners (C1 to C4):
+  C1: (1383.96, 563.38)
+  C2: (1371.68, 563.23)
+  C3: (1371.33, 591.25)
+  C4: (1383.61, 591.41)
+📏 Min distance to map (vehicle 8): 41.73
+  🔸 Closest point on vehicle: (1383.9643226784863, 563.3823659791193)
+  🔸 Closest point on polygon: (1425.6412409993966, 561.3486180536381)
+================================================================================
+Vehicle ID: 4 | Iteration: 27
+============================================================
+🚗 [ITERATION START] Vehicle ID: 4 | Index: 5 | Iteration: 27
+🔹 Rear Position     : [1355.6728340679547, 277.7170132229076]
+🔹 Front Position    : [1355.86727432059, 280.71070575290315]
+🔹 Orientation (rad) : 1.5059
+🔹 Target Position   : [1362, 420]
+🔹 Distance to Target: 142.42
+============================================================
+  🎯 Vehicle ID 4 pursuing: [1362, 420]
+  → [Attraction Force] F_att = [1.7594432126778843, 39.96128575986215]
+  → [Lane Keeping Force] F_lane = [0, 0]
+  → [Vehicle Repulsion Force] F_veh = [0, 0]
+  🚫 Boundary Repulsion Force: (0.81, -0.01)
+  ⇒ [Total Force] F_total = [2.5668019547891676, 39.95168712452874]
+  ⇒ [Force Direction] 86.32°
+  ⇒ [Steering Angle] 0.04°
+✅ [ITERATION END] Vehicle ID: 4 | Iteration 27
+------------------------------------------------------------
+🔄 [Vehicle Update]
+  Rear Velocity : [2.5925364158316517, 39.91589601816032, 0.009325427363637156]
+  New Rear Pos  : [1355.8024608887463, 279.7128080238156]
+  New Front Pos : [1355.995505246975, 282.7065908870903]
+  New Orientation: 1.5064 rad
+  Velocity (Front Axle) = 40.0000097834033
+  Rear-Front Diff Check = 0.0000, Formula Diff = 0.0000
+🧩 Vehicle 4 Corners (C1 to C4):
+  C1: (1361.93, 279.32)
+  C2: (1349.67, 280.11)
+  C3: (1351.48, 308.08)
+  C4: (1363.73, 307.29)
+📏 Min distance to map (vehicle 4): 24.99
+  🔸 Closest point on vehicle: (1349.6746192173403, 280.1079419784764)
+  🔸 Closest point on polygon: (1324.685717120902, 280.4050334027654)
+================================================================================
+Vehicle ID: 13 | Iteration: 27
+============================================================
+🚗 [ITERATION START] Vehicle ID: 13 | Index: 6 | Iteration: 27
+🔹 Rear Position     : [1285.500271711704, 842.4887657962007]
+🔹 Front Position    : [1288.0523048037232, 840.9117015332436]
+🔹 Orientation (rad) : -0.5535
+🔹 Target Position   : [1310, 827]
+🔹 Distance to Target: 28.99
+============================================================
+  🎯 Vehicle ID 13 pursuing: [1310, 827]
+  → [Attraction Force] F_att = [33.784762602432366, -21.414710268814932]
+  → [Lane Keeping Force] F_lane = [0, 0]
+  → [Vehicle Repulsion Force] F_veh = [0, 0]
+  🚫 Boundary Repulsion Force: (0.22, 0.35)
+  ⇒ [Total Force] F_total = [34.000698690510795, -21.065278698186173]
+  ⇒ [Force Direction] -31.78°
+  ⇒ [Steering Angle] -0.07°
+✅ [ITERATION END] Vehicle ID: 13 | Iteration 27
+------------------------------------------------------------
+🔄 [Vehicle Update]
+  Rear Velocity : [34.02709920985765, -21.027518145575442, -0.015334495411326038]
+  New Rear Pos  : [1287.2016266721969, 841.437389888922]
+  New Front Pos : [1289.7524499390095, 839.8583693215161]
+  New Orientation: -0.5543 rad
+  Velocity (Front Axle) = 40.000026454000576
+  Rear-Front Diff Check = 0.0000, Formula Diff = -0.0000
+🧩 Vehicle 13 Corners (C1 to C4):
+  C1: (1283.97, 836.22)
+  C2: (1290.43, 846.66)
+  C3: (1314.27, 831.91)
+  C4: (1307.80, 821.46)
+📏 Min distance to map (vehicle 13): 34.89
+  🔸 Closest point on vehicle: (1311.829, 874.45)
+  🔸 Closest point on polygon: (1293.4641675541507, 844.7825955055664)
+================================================================================
+Vehicle ID: 11 | Iteration: 27
+============================================================
+🚗 [ITERATION START] Vehicle ID: 11 | Index: 7 | Iteration: 27
+🔹 Rear Position     : [934.477897580024, 634.9850606344427]
+🔹 Front Position    : [931.6107496845076, 634.1021779367751]
+🔹 Orientation (rad) : -2.8429
+🔹 Target Position   : [762, 576]
+🔹 Distance to Target: 182.29
+============================================================
+  🎯 Vehicle ID 11 pursuing: [762, 576]
+  → [Attraction Force] F_att = [-37.84126431013786, -12.96297479015857]
+  → [Lane Keeping Force] F_lane = [0, 0]
+  → [Vehicle Repulsion Force] F_veh = [0, 0]
+  🚫 Boundary Repulsion Force: (-0.54, 1.06)
+  ⇒ [Total Force] F_total = [-38.380540037884494, -11.905375800710056]
+  ⇒ [Force Direction] -162.77°
+  ⇒ [Steering Angle] 0.12°
+✅ [ITERATION END] Vehicle ID: 11 | Iteration 27
+------------------------------------------------------------
+🔄 [Vehicle Update]
+  Rear Velocity : [-38.22859842815482, -11.771756972469284, 0.027534976945661552]
+  New Rear Pos  : [932.5664676586163, 634.3964727858192]
+  New Front Pos : [929.7005382829678, 633.5096436744726]
+  New Orientation: -2.8415 rad
+  Velocity (Front Axle) = 40.00008529459154
+  Rear-Front Diff Check = 0.0000, Formula Diff = 0.0000
+🧩 Vehicle 11 Corners (C1 to C4):
+  C1: (930.75, 640.26)
+  C2: (934.38, 628.53)
+  C3: (907.61, 620.25)
+  C4: (903.98, 631.98)
+📏 Min distance to map (vehicle 11): 20.87
+  🔸 Closest point on vehicle: (934.3816774075816, 628.5303336842289)
+  🔸 Closest point on polygon: (943.8598185910905, 609.9423052939749)
+================================================================================
+Vehicle ID: 9 | Iteration: 27
+============================================================
+🚗 [ITERATION START] Vehicle ID: 9 | Index: 8 | Iteration: 27
+🔹 Rear Position     : [1381.0639812267145, 790.3732785708911]
+🔹 Front Position    : [1381.253211451294, 793.3673046281061]
+🔹 Orientation (rad) : 1.5077
+🔹 Target Position   : [1394, 1057]
+🔹 Distance to Target: 266.94
+============================================================
+  🎯 Vehicle ID 9 pursuing: [1394, 1057]
+  → [Attraction Force] F_att = [1.931765713856245, 39.95332628488859]
+  → [Lane Keeping Force] F_lane = [0, 0]
+  → [Vehicle Repulsion Force] F_veh = [0, 0]
+  🚫 Boundary Repulsion Force: (0.58, -0.04)
+  ⇒ [Total Force] F_total = [2.5161603244542663, 39.91639102738165]
+  ⇒ [Force Direction] 86.39°
+  ⇒ [Steering Angle] 0.01°
+✅ [ITERATION END] Vehicle ID: 9 | Iteration 27
+------------------------------------------------------------
+🔄 [Vehicle Update]
+  Rear Velocity : [2.5230696457385102, 39.92034718740248, 0.0022155831437080486]
+  New Rear Pos  : [1381.1901347090015, 792.3692959302613]
+  New Front Pos : [1381.3790332567505, 795.3633429320811]
+  New Orientation: 1.5078 rad
+  Velocity (Front Axle) = 40.00000055224097
+  Rear-Front Diff Check = 0.0000, Formula Diff = 0.0000
+🧩 Vehicle 9 Corners (C1 to C4):
+  C1: (1387.32, 791.98)
+  C2: (1375.06, 792.76)
+  C3: (1376.83, 820.73)
+  C4: (1389.08, 819.95)
+📏 Min distance to map (vehicle 9): 29.22
+  🔸 Closest point on vehicle: (1387.3185176624736, 791.9826478117616)
+  🔸 Closest point on polygon: (1416.453, 789.687)
+================================================================================

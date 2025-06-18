@@ -12,12 +12,19 @@ import json
 if __name__ == "__main__":
     print("Creating a map using plotting.py:\n----------")
     fig, ax, boundaries_raw, obstacles_raw = create_map()  # Get actual map with polygons
+    
+    # Initialize the iteration text object ONCE
+    iteration_text = plt.gcf().text(
+        0.02, 0.95, "Iteration: 0",
+        fontsize=14, color='red',
+        bbox=dict(facecolor='white', alpha=0.7, edgecolor='none')
+    )
 
     print("\nLoading vehicle data from CSV:\n----------")
     df = pd.read_csv("C:/ML/IHUBdata/apf/test5/A-hybrid-path-planning-algorithm-based-on-APF-and-Astar/singleAPF/vehicle_axle_with_orientation.csv")
 
-    if len(df) < 10:
-        raise ValueError("At least 10 vehicles required.")
+    if len(df) < 9:
+        raise ValueError("At least 9 vehicles required.")
     
     length = 3000  # or use bounding box from image
     width = 2000
@@ -28,7 +35,7 @@ if __name__ == "__main__":
     target_indices = [0] * len(vehicle_ids)
     
     # Load local targets from JSON
-    with open("C:/ML/IHUBdata/apf/test5/A-hybrid-path-planning-algorithm-based-on-APF-and-Astar/singleAPF/Utility/csvFiles/vehicle_localTargets.json") as f:
+    with open("C:/ML/IHUBdata/apf/test5/A-hybrid-path-planning-algorithm-based-on-APF-and-Astar/singleAPF/Utility/Cases/Case1/vehicle_localTargets.json") as f:
         local_target_data = json.load(f)["vehicles"]
         
     # Create a mapping from vehicle_id to list of targets (local + final)
@@ -51,15 +58,6 @@ if __name__ == "__main__":
 
 
     # Convert polygon boundaries/obstacles into APF format: [x_center, y_center, width, height, orientation]
-    #converting irregular polygons (from segmentation masks) into rectangles with this function:
-    '''def polygon_to_apf_format(polygon):
-        x_coords, y_coords = zip(*polygon)
-        x_center = sum(x_coords) / len(x_coords)
-        y_center = sum(y_coords) / len(y_coords)
-        width = max(x_coords) - min(x_coords)
-        height = max(y_coords) - min(y_coords)
-        orientation = 'h' if width >= height else 'v'
-        return [x_center, y_center, width, height, orientation]'''
         
     def polygon_to_apf_format_pca(polygon):
         coords = np.array(polygon)
@@ -90,7 +88,7 @@ if __name__ == "__main__":
     moving_vehicles = []  # Can be updated if needed
     
     print("\n🚗 Vehicle Initialization:\n--------------------------")
-    for i in range(10):
+    for i in range(9):
         print(f"Vehicle {i+1}:")
         print(f"  Rear Start: {rear_positions[i]}")
         print(f"  Front Start: {front_positions[i]}")
@@ -175,64 +173,49 @@ if __name__ == "__main__":
     
     # Keep running until all vehicles have completed their local targets
     done_flags = [False] * len(vehicle_ids)
+    try: 
+        while not all(done_flags):
+            # For each vehicle, check if it needs a new target
+            for i, vid in enumerate(vehicle_ids):
+                if not done_flags[i]:
+                    current_target = vehicle_target_map[vid][target_indices[i]]
+                    dist = math.hypot(current_target[0] - rear_positions[i][0], current_target[1] - rear_positions[i][1])
+                    if dist <= target_area:
+                        print(f"✅ Vehicle {vid} reached target {target_indices[i]}: {current_target}")
+                        target_indices[i] += 1
+                        if target_indices[i] >= len(vehicle_target_map[vid]):
+                            done_flags[i] = True
 
-    while not all(done_flags):
-        # For each vehicle, check if it needs a new target
-        for i, vid in enumerate(vehicle_ids):
-            if not done_flags[i]:
-                current_target = vehicle_target_map[vid][target_indices[i]]
-                dist = math.hypot(current_target[0] - rear_positions[i][0], current_target[1] - rear_positions[i][1])
-                if dist <= target_area:
-                    print(f"✅ Vehicle {vid} reached target {target_indices[i]}: {current_target}")
-                    target_indices[i] += 1
-                    if target_indices[i] >= len(vehicle_target_map[vid]):
-                        done_flags[i] = True
+            # Update current targets
+            targets = []
+            for i, vid in enumerate(vehicle_ids):
+                if target_indices[i] < len(vehicle_target_map[vid]):
+                    targets.append(vehicle_target_map[vid][target_indices[i]])
+                else:
+                    targets.append(vehicle_target_map[vid][-1])  # Stay at final
+            print("\n🚦 Updated Targets for All Vehicles:", targets)
 
-        # Update current targets
-        targets = []
-        for i, vid in enumerate(vehicle_ids):
-            if target_indices[i] < len(vehicle_target_map[vid]):
-                targets.append(vehicle_target_map[vid][target_indices[i]])
-            else:
-                targets.append(vehicle_target_map[vid][-1])  # Stay at final
-        print("\n🚦 Updated Targets for All Vehicles:", targets)
-
-        # Step-wise path planning (not per target batch)
-        rear_positions, front_positions, orientations, iterations, moving_vehicles = apf.pathplanning(
-            rear_positions, front_positions, orientations, targets, iterations, moving_vehicles
-        )
-
-    '''while not all(iterations[i] > apf.max_iters or target_indices[i] >= len(vehicle_target_map[vehicle_ids[i]]) for i in range(len(rear_positions))):
-        rear_positions, front_positions, orientations, iterations, moving_vehicles = apf.pathplanning(
-            rear_positions, front_positions, orientations, targets, iterations, []
-        )
-  
-        # Check which vehicles have reached their current local target
-        for i in range(len(rear_positions)):
-            if target_indices[i] >= len(vehicle_target_map[vehicle_ids[i]]):
-                continue  # Already completed all targets
-
-            # Distance from rear axle to current target
-            current_target = vehicle_target_map[vehicle_ids[i]][target_indices[i]]
-            dist = math.hypot(current_target[0] - rear_positions[i][0], current_target[1] - rear_positions[i][1])
-
-            if dist <= target_area:
-                print(f"✅ Vehicle {vehicle_ids[i]} reached local target {target_indices[i]}: {current_target}")
-                target_indices[i] += 1  # Move to next local/final target
+            # Step-wise path planning (not per target batch)
+            rear_positions, front_positions, orientations, iterations, moving_vehicles = apf.pathplanning(
+                rear_positions, front_positions, orientations, targets, iterations, moving_vehicles
+            )
+            
+            # Update the iteration number on the plot
+            iteration_text.set_text(f"Iteration: {max(iterations)}")
+            
+            # Save logs after each iteration
+            apf.save_debug_logs_to_txt("C:/ML/IHUBdata/apf/test5/A-hybrid-path-planning-algorithm-based-on-APF-and-Astar/singleAPF/Results/vehicle_debug_log.txt")
+            print("✅ Saved debug logs to vehicle_debug_log.txt")
         
-        # Update the `targets` list to reflect new active targets
-        targets = []
-        for i, vid in enumerate(vehicle_ids):
-            if target_indices[i] < len(vehicle_target_map[vid]):
-                targets.append(vehicle_target_map[vid][target_indices[i]])
-            else:
-                # Stay at final target
-                targets.append(vehicle_target_map[vid][-1])'''
+    finally:
+        # Ensure final logs are saved even if interrupted
+        apf.save_debug_logs_to_txt("C:/ML/IHUBdata/apf/test5/A-hybrid-path-planning-algorithm-based-on-APF-and-Astar/singleAPF/Results/vehicle_debug_log_final.txt")
+        print("✅ Final debug logs saved to vehicle_debug_log_final.txt")
 
     t2 = time.time()
     apf_time = t2 - t1
-
-    for i in range(10):
+    
+    for i in range(9):
         print(f"\n🚘 Vehicle {i + 1} Results:")
         print(f"  🔹 Rear Velocity: {apf.rear_velocities[i]}")
         print(f"  🔹 Total Path: {apf.paths[i]}")

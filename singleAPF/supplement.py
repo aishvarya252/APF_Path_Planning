@@ -16,8 +16,8 @@ class SUPPLY:
         '''Finds useful lane boundaries for a single vehicle.'''
     
         '''Finds useful lane boundaries for a single vehicle.'''
-        print("\n🔎 [SUPPLY] useful_lines() called")
-        print("  Front Position Input:", front_p)
+        #print("\n🔎 [SUPPLY] useful_lines() called")
+        #print("  Front Position Input:", front_p)
         use_sollinesx, use_sollinesy = [], []
 
         for solid_line in self.h_sollines:
@@ -32,14 +32,14 @@ class SUPPLY:
                 if front_p[0] - 4 * self.lw <= x <= front_p[0] + 4 * self.lw:
                     use_sollinesy.append(solid_line)
                     
-        print("  Horizontal Lane Lines (used):", use_sollinesx)
-        print("  Vertical Lane Lines (used):", use_sollinesy)
-        print("🔚 [SUPPLY] useful_lines() completed\n")
+        #print("  Horizontal Lane Lines (used):", use_sollinesx)
+        #print("  Vertical Lane Lines (used):", use_sollinesy)
+        #print("🔚 [SUPPLY] useful_lines() completed\n")
 
         return use_sollinesx, use_sollinesy
 
     def lane_xy(self, front_p, use_sollinesx, use_sollinesy):
-        print("\n🔧 [SUPPLY] lane_xy() called")
+        #print("\n🔧 [SUPPLY] lane_xy() called")
         # Compute vertical force from horizontal lanes
         yd, yu = 0, float("inf")
 
@@ -111,7 +111,7 @@ class SUPPLY:
         return F_lane
 
     def lane_x(self, front_p, use_sollinesx):
-        print("\n🔧 [SUPPLY] lane_x() called")
+        #print("\n🔧 [SUPPLY] lane_x() called")
         # Similar to lane_xy, but only vertical force from horizontal lanes
         yd, yu = 0, float("inf")
         for solid_line in use_sollinesx:
@@ -161,11 +161,11 @@ class SUPPLY:
         F_dotted = F_dottedy
         F_lane = [F_solid[0] + F_dotted[0], F_solid[1] + F_dotted[1]]
 
-        print(f"  Final Lane Force X: {F_lane}")
+        #print(f"  Final Lane Force X: {F_lane}")
         return F_lane
 
     def lane_y(self, front_p, use_sollinesy,):
-        print("\n🔧 [SUPPLY] lane_y() called")
+        #print("\n🔧 [SUPPLY] lane_y() called")
         xl, xr = 0, float("inf")
 
         for solid_line in use_sollinesy:
@@ -215,11 +215,11 @@ class SUPPLY:
         F_dotted = F_dottedx
         F_lane = [F_solid[0] + F_dotted[0], F_solid[1] + F_dotted[1]]
 
-        print(f"  Final Lane Force Y: {F_lane}")
+        #print(f"  Final Lane Force Y: {F_lane}")
         return F_lane
 
     def lane(self, front_p):
-        print("\n🔧 [SUPPLY] lane() default lane correction")
+        #print("\n🔧 [SUPPLY] lane() default lane correction")
         F_solidtx, F_solidty = 0, 0
 
         for t_line in self.t_lines:

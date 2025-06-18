@@ -47,15 +47,15 @@ class APF:
         self.min_distances = [[] for _ in range(num_vehicles)]  # Per vehicle per iteration
         self.closest_point_pairs = [[] for _ in range(num_vehicles)]  # [(pt_on_vehicle, pt_on_polygon)]
 
-
-
-
         # Forces (vectors of vectors for each vehicle)
         self.F_atts = [[] for _ in range(num_vehicles)]           # Attraction forces
         self.F_lanes = [[] for _ in range(num_vehicles)]          # Lane-keeping forces
         self.F_obss = [[] for _ in range(num_vehicles)]           # Obstacle repulsion forces
         self.F_vehs = [[] for _ in range(num_vehicles)]           # Vehicle repulsion forces
         self.F_totals = [[] for _ in range(num_vehicles)]         # Total forces
+        self.debug_logs = []  # Store logs per iteration per vehicle
+
+
 
     def solid(self, solid_lines):
         #helper function organizes solid lines:
@@ -84,10 +84,10 @@ class APF:
 
     def keeplane(self, front_p, supply):
 
-        print("\n🟦 [keeplane FUNCTION START] 🟦")
+        '''        print("\n🟦 [keeplane FUNCTION START] 🟦")
         print(f"  Input Front Position: {front_p} (type: {type(front_p)})")
         print(f"  Horizontal Solid Lines: {supply.h_sollines}")
-        print(f"  Vertical Solid Lines  : {supply.v_sollines}")
+        print(f"  Vertical Solid Lines  : {supply.v_sollines}")'''
         
         #Identifies nearby solid lane lines using a SUPPLY class.
         use_sollinesx, use_sollinesy = supply.useful_lines(front_p)
@@ -254,7 +254,7 @@ class APF:
         F_veh = [F_vehx, F_vehy]
 
         return F_veh
-        
+    
     def pathplanning(self, rear_p_list, front_p_list, fi_list, targets, iters_list, moving_vehicles):
         # Create SUPPLY and EMERGENCY objects for lane and obstacle handling
         supply = SUPPLY(self.k_replane, self.k_lane, self.lw, self.h_sollines, self.v_sollines, self.t_lines)
@@ -270,10 +270,12 @@ class APF:
         updated_positions = []  # Store updated rear and front positions
         updated_orientations = []  # Store updated orientations
         updated_velocities = []  # Store updated velocities
-            
-            # Loop through each vehicle for simultaneous path planning
-            # **Step 1: Compute Forces for All Vehicles**
         
+        # Create a per-vehicle log list
+        vehicle_logs = [[] for _ in range(len(rear_p_list))]
+            
+        # Loop through each vehicle for simultaneous path planning
+        # **Step 1: Compute Forces for All Vehicles**
         for i in range(len(rear_p_list)):
             if vehicles_reached_target[i]:  # Skip if vehicle already reached its target
                 forces.append(None)
@@ -290,6 +292,8 @@ class APF:
             # Calculate initial distance to the target
             distance = math.sqrt((target[0] - rear_p[0]) ** 2 + (target[1] - rear_p[1]) ** 2)
                 
+            log_str = []
+
             print("\n" + "="*60)
             print(f"🚗 [ITERATION START] Vehicle ID: {vehicle_id} | Index: {i} | Iteration: {iters_list[i]}")
             print(f"🔹 Rear Position     : {rear_p}")
@@ -299,6 +303,17 @@ class APF:
             print(f"🔹 Distance to Target: {distance:.2f}")
             print("="*60)
             print(f"  🎯 Vehicle ID {vehicle_id} pursuing: {target}")
+            
+            vehicle_logs[i].append("=" * 60)
+            vehicle_logs[i].append(f"🚗 [ITERATION START] Vehicle ID: {self.vehicle_ids[i]} | Index: {i} | Iteration: {iters_list[i]}")
+            vehicle_logs[i].append(f"🔹 Rear Position     : {rear_p}")
+            vehicle_logs[i].append(f"🔹 Front Position    : {front_p}")
+            vehicle_logs[i].append(f"🔹 Orientation (rad) : {fi:.4f}")
+            vehicle_logs[i].append(f"🔹 Target Position   : {target}")
+            vehicle_logs[i].append(f"🔹 Distance to Target: {distance:.2f}")
+            vehicle_logs[i].append("=" * 60)
+            vehicle_logs[i].append(f"  🎯 Vehicle ID {self.vehicle_ids[i]} pursuing: {target}")
+
                 
             if distance <= self.target_area:
                 print(f"Vehicle {vehicle_id} is within target area.")
@@ -310,11 +325,11 @@ class APF:
                 
             # Calculate forces
             F_att = self.attraction(front_p, target)
-            print(f"  → [Attraction Force] F_att = {F_att}")
+            #print(f"  → [Attraction Force] F_att = {F_att}")
                 
             #Calculate lane keeping forces
             F_lane, use_sollinesx, use_sollinesy = self.keeplane(front_p, supply)
-            print(f"  → [Lane Keeping Force] F_lane = {F_lane}")
+            #print(f"  → [Lane Keeping Force] F_lane = {F_lane}")
                 
                 #calculate obs repulsion force
                 #F_obs = self.repulsion(front_p, emergency, use_sollinesx, use_sollinesy)
@@ -322,7 +337,7 @@ class APF:
                 
                 #calculate vehicle repulsion force
             F_veh = self.leavecar(front_p, moving_vehicles, emergency, use_sollinesx, use_sollinesy)
-            print(f"  → [Vehicle Repulsion Force] F_veh = {F_veh}")
+            #print(f"  → [Vehicle Repulsion Force] F_veh = {F_veh}")
                 
             if not self.closest_point_pairs[i]:
                 # Compute closest point just-in-time
@@ -336,7 +351,7 @@ class APF:
             else:
                 alpha, e = self.closest_point_pairs[i][-1]
             Fx_rep, Fy_rep = self.repulsion_force_vector(alpha, e, self.k_rep)
-            print(f"  🚫 Boundary Repulsion Force: ({Fx_rep:.2f}, {Fy_rep:.2f})")
+            #print(f"  🚫 Boundary Repulsion Force: ({Fx_rep:.2f}, {Fy_rep:.2f})")
                 
                 # Visualize the repulsion force from closest point on vehicle polygon
                 #plt.quiver(alpha[0], alpha[1], Fx_rep, Fy_rep, color='purple', angles='xy', scale_units='xy', scale=20, width=0.003)
@@ -347,16 +362,9 @@ class APF:
             # Add to total force
             F_total[0] += Fx_rep
             F_total[1] += Fy_rep
-
-                # Total force
-            '''F_total = [F_att[0] + F_lane[0] + F_obs[0] + F_veh[0], 
-                           F_att[1] + F_lane[1] + F_obs[1] + F_veh[1]]'''
                            
-                # Calculate force direction and steering angle, Converts force components into an angle.
+            # Calculate force direction and steering angle, Converts force components into an angle.
             F_direction = math.atan2(F_total[1], F_total[0])
-                
-            print(f"  ⇒ [Total Force] F_total = {F_total}")
-            print(f"  ⇒ [Force Direction] {math.degrees(F_direction):.2f}°")
 
             #Limit Steering Angle (si), If the difference between the force direction and the vehicle’s current orientation fi exceeds ±40°, it is capped.
             if F_direction - fi > 40 / 180 * math.pi:
@@ -369,11 +377,34 @@ class APF:
                 
             forces.append(F_total)
             steering_angles.append(si)
-                
+            
+            print(f"  → [Attraction Force] F_att = {F_att}")
+            print(f"  → [Lane Keeping Force] F_lane = {F_lane}")
+            print(f"  → [Vehicle Repulsion Force] F_veh = {F_veh}")
+            print(f"  🚫 Boundary Repulsion Force: ({Fx_rep:.2f}, {Fy_rep:.2f})")
+            print(f"  ⇒ [Total Force] F_total = {F_total}")
+            print(f"  ⇒ [Force Direction] {math.degrees(F_direction):.2f}°")
+            print(f"  ⇒ [Steering Angle] {math.degrees(si):.2f}°")
             print(f"✅ [ITERATION END] Vehicle ID: {vehicle_id} | Iteration {iters_list[i]}")
-            print("-"*60)
+            print("-" * 60)
 
-            # **Step 2: Update Positions for All Vehicles**
+            vehicle_logs[i].append(f"  → [Attraction Force] F_att = {F_att}")
+            vehicle_logs[i].append(f"  → [Lane Keeping Force] F_lane = {F_lane}")
+            vehicle_logs[i].append(f"  → [Vehicle Repulsion Force] F_veh = {F_veh}")
+            vehicle_logs[i].append(f"  🚫 Boundary Repulsion Force: ({Fx_rep:.2f}, {Fy_rep:.2f})")
+            vehicle_logs[i].append(f"  ⇒ [Total Force] F_total = {F_total}")
+            vehicle_logs[i].append(f"  ⇒ [Force Direction] {math.degrees(F_direction):.2f}°")
+            vehicle_logs[i].append(f"  ⇒ [Steering Angle] {math.degrees(si):.2f}°")
+            vehicle_logs[i].append(f"✅ [ITERATION END] Vehicle ID: {self.vehicle_ids[i]} | Iteration {iters_list[i]}")
+            vehicle_logs[i].append("-" * 60)
+            
+            self.debug_logs.append({
+                "vehicle_id": self.vehicle_ids[i],
+                "iteration": iters_list[i],
+                "log": "\n".join(log_str)
+            })
+
+        # **Step 2: Update Positions for All Vehicles**
         for i in range(len(rear_p_list)):
             if vehicles_reached_target[i]:  # Skip already reached vehicles
                 continue
@@ -395,20 +426,24 @@ class APF:
             print(f"  New Orientation: {fi:.4f} rad")
             print(f"  Velocity (Front Axle) = {vf}")
             print(f"  Rear-Front Diff Check = {dif_distance:.4f}, Formula Diff = {dif_distance - dif_distance2:.4f}")
+
+            vehicle_logs[i].append("🔄 [Vehicle Update]")
+            vehicle_logs[i].append(f"  Rear Velocity : {rear_v}")
+            vehicle_logs[i].append(f"  New Rear Pos  : {rear_p}")
+            vehicle_logs[i].append(f"  New Front Pos : {front_p}")
+            vehicle_logs[i].append(f"  New Orientation: {fi:.4f} rad")
+            vehicle_logs[i].append(f"  Velocity (Front Axle) = {vf}")
+            vehicle_logs[i].append(f"  Rear-Front Diff Check = {dif_distance:.4f}, Formula Diff = {dif_distance - dif_distance2:.4f}")
+
                 
-                # **Update the vehicle lists**
+            # **Update the vehicle lists**
             rear_p_list[i] = rear_p
             front_p_list[i] = front_p
             fi_list[i] = fi
                 
-                # Compute corners and store
+            # Compute corners and store
             corners = compute_corners(rear_p[0], rear_p[1], fi, self.L, self.B)
             self.vehicle_corners[i].append(corners)
-                
-                # 🖨️ Print the corners for debugging
-            print(f"🧩 Vehicle {self.vehicle_ids[i]} Corners (C1 to C4):")
-            for j, corner in enumerate(corners, 1):
-                print(f"  C{j}: ({corner[0]:.2f}, {corner[1]:.2f})")
                     
             vehicle_poly = corners  # Already in C1–C4 format
             min_dist = float('inf')
@@ -424,29 +459,34 @@ class APF:
 
             self.min_distances[i].append(min_dist)
             self.closest_point_pairs[i].append((closest_vehicle_pt, closest_static_pt))
+            
+            print(f"🧩 Vehicle {self.vehicle_ids[i]} Corners (C1 to C4):")
+            for j, corner in enumerate(corners, 1):
+                print(f"  C{j}: ({corner[0]:.2f}, {corner[1]:.2f})")
 
-            print(f"📏 Min distance to map (vehicle {self.vehicle_ids[i]}): {min_dist:.2f}")
+            print(f"📏 Min distance to map (vehicle {vehicle_id}): {min_dist:.2f}")
             print(f"  🔸 Closest point on vehicle: {closest_vehicle_pt}")
             print(f"  🔸 Closest point on polygon: {closest_static_pt}")
 
-                # Store updated values for simultaneous update
+            vehicle_logs[i].append(f"🧩 Vehicle {self.vehicle_ids[i]} Corners (C1 to C4):")
+            for j, corner in enumerate(corners, 1):
+                vehicle_logs[i].append(f"  C{j}: ({corner[0]:.2f}, {corner[1]:.2f})")
+            vehicle_logs[i].append(f"📏 Min distance to map (vehicle {self.vehicle_ids[i]}): {min_dist:.2f}")
+            vehicle_logs[i].append(f"  🔸 Closest point on vehicle: {closest_vehicle_pt}")
+            vehicle_logs[i].append(f"  🔸 Closest point on polygon: {closest_static_pt}")
+
+            # Store updated values for simultaneous update
             updated_positions.append((rear_p, front_p))
             updated_orientations.append(fi)
             updated_velocities.append((rear_v, front_v))
                 
-                # Store historical values for analysis
+            # Store historical values for analysis
             self.rear_velocities[i].append(rear_v)
             self.paths[i].append([rear_p[0], rear_p[1]])
             self.directions[i].append(fi)
             self.front_velocities[i].append(vf)
             self.front_points[i].append([front_p[0], front_p[1]])
             self.steerings[i].append(si)
-
-            # **Step 3: Draw All Vehicles in the Same Frame**
-            '''for i in range(len(rear_p_list)):
-                if vehicles_reached_target[i]:  # Skip already reached vehicles
-                    continue
-                self.car.draw_car(updated_positions[i][0], updated_positions[i][1])'''
                 
         draw_index = 0
         for i in range(len(rear_p_list)):
@@ -454,16 +494,16 @@ class APF:
                 continue
             self.car.draw_car(updated_positions[draw_index][0], updated_positions[draw_index][1])
             draw_index += 1
-
-
-            # **Step 4: Update Moving Vehicles and Refresh Frame**
-            '''moving_vehicles, p1, p2, p3 = self.car.draw_movingcar(moving_vehicles, self.del_t)
-            plt.pause(0.1)
-            p1.remove()
-            p2.remove()
-            p3.remove()'''
             
-            # Only call draw_movingcar if there are any moving vehicles
+        for i in range(len(rear_p_list)):
+            self.debug_logs.append({
+                "vehicle_id": self.vehicle_ids[i],
+                "iteration": iters_list[i],
+                "log": "\n".join(vehicle_logs[i])
+            })
+
+        # **Step 4: Update Moving Vehicles and Refresh Frame**
+        # Only call draw_movingcar if there are any moving vehicles
         if moving_vehicles:
             moving_vehicles, p1, p2, p3 = self.car.draw_movingcar(moving_vehicles, self.del_t)
             plt.pause(0.1)
@@ -473,6 +513,12 @@ class APF:
         else:
             plt.pause(0.1)  # just pause to show vehicle motion
 
-            
-        print("\n✅✅ All vehicles have reached their targets! Simulation complete.")
         return rear_p_list, front_p_list, fi_list, iters_list, moving_vehicles
+    
+    def save_debug_logs_to_txt(self, filepath):
+        with open(filepath, "a", encoding="utf-8") as f:  # <-- Add encoding="utf-8"
+            for entry in self.debug_logs:
+                f.write(f"Vehicle ID: {entry['vehicle_id']} | Iteration: {entry['iteration']}\n")
+                f.write(entry['log'])
+                f.write("\n" + "="*80 + "\n")
+        self.debug_logs.clear()
