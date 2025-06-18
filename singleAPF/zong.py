@@ -21,7 +21,7 @@ if __name__ == "__main__":
     )
 
     print("\nLoading vehicle data from CSV:\n----------")
-    df = pd.read_csv("C:/ML/IHUBdata/apf/test5/A-hybrid-path-planning-algorithm-based-on-APF-and-Astar/singleAPF/vehicle_axle_with_orientation.csv")
+    df = pd.read_csv("C:/ML/IHUBdata/apf/test5/A-hybrid-path-planning-algorithm-based-on-APF-and-Astar/singleAPF/Utility/Cases/Case1/vehicle_axle_with_orientation.csv")
 
     if len(df) < 9:
         raise ValueError("At least 9 vehicles required.")

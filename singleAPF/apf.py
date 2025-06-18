@@ -321,6 +321,7 @@ class APF:
                 F_total = [0, 0]  # no further attraction
                 forces.append(F_total)
                 steering_angles.append(si)
+                vehicles_reached_target[i] = True 
                 continue
                 
             # Calculate forces
