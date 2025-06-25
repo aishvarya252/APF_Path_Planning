@@ -2,7 +2,7 @@ import json
 import csv
 
 # Load JSON
-with open('C:/ML/IHUBdata/apf/test5/A-hybrid-path-planning-algorithm-based-on-APF-and-Astar/singleAPF/Utility/ihub.v8i.coco/train/_annotations.coco.json', 'r') as f:
+with open('C:/ML/IHUBdata/apf/test5/A-hybrid-path-planning-algorithm-based-on-APF-and-Astar/singleAPF/Utility/Cases/Case2/train/_annotations.coco.json', 'r') as f:
     data = json.load(f)
 
 # Target frame base names

@@ -1,0 +1,54 @@
+{
+    "vehicles": [
+    {
+        "vehicle_id": "12",
+        "local_targets": [[1172,756]],
+        "final_target": [1047.5035,679.9735000000001]
+    },
+    {
+        "vehicle_id": "6",
+        "local_targets": [[2081,667],[2353,605]],
+        "final_target": [2615.3465,577.0805]
+    },
+    {
+        "vehicle_id": "5",
+        "local_targets": [[1410,989]],
+        "final_target": [1420.4065,1080.449]
+    },
+    {
+        "vehicle_id": "7",
+        "local_targets": [[1377,471],[1533,559]],
+        "final_target": [1686.8825000000002,657.384]
+    },
+    {
+        "vehicle_id": "10",
+        "local_targets": [[645,510]],
+        "final_target": [321.3205,321.4415]
+    },
+    {
+        "vehicle_id": "8",
+        "local_targets": [[1262,672],[1262,612]],
+        "final_target": [1266.447,569.481]
+    },
+    {
+        "vehicle_id": "4",
+        "local_targets": [[1368,519],[1388,818],[1398,1058]],
+        "final_target": [1381.1735,1208.1509999999998]
+    },
+    {
+        "vehicle_id": "13",
+        "local_targets": [[1394,1106],[1386,1298]],
+        "final_target": [1377.057,1440.219]
+    },
+    {
+        "vehicle_id": "11",
+        "local_targets": [[614,409],[856,469],[1056,315],[1224,197]],
+        "final_target": [1245.88,239.8035]
+    },
+    {
+        "vehicle_id": "9",
+        "local_targets": [[2081,741],[1864,789]],
+        "final_target": [1637.004,833.8164999999999]
+    }
+    ]
+}

@@ -194,7 +194,7 @@ def compute_axle_centers(csv_path):
 
 # === Example usage ===
 
-csv_file_path = 'C:/ML/IHUBdata/apf/test5/A-hybrid-path-planning-algorithm-based-on-APF-and-Astar/singleAPF/vehicle_segmentation_coordinates.csv'  # Replace with your actual file path
+csv_file_path = 'C:/ML/IHUBdata/apf/test5/A-hybrid-path-planning-algorithm-based-on-APF-and-Astar/singleAPF/Utility/Cases/Case2/vehicle_segmentation_coordinates.csv'  # Replace with your actual file path
 summary_df = compute_axle_centers(csv_file_path)
 
 # Show or save the result

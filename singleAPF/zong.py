@@ -21,10 +21,10 @@ if __name__ == "__main__":
     )
 
     print("\nLoading vehicle data from CSV:\n----------")
-    df = pd.read_csv("C:/ML/IHUBdata/apf/test5/A-hybrid-path-planning-algorithm-based-on-APF-and-Astar/singleAPF/Utility/Cases/Case1/vehicle_axle_with_orientation.csv")
+    df = pd.read_csv("C:/ML/IHUBdata/apf/test5/A-hybrid-path-planning-algorithm-based-on-APF-and-Astar/singleAPF/Utility/Cases/Case2/vehicle_axle_with_orientation.csv")
 
-    if len(df) < 9:
-        raise ValueError("At least 9 vehicles required.")
+    if len(df) < 10:
+        raise ValueError("At least 10 vehicles required.")
     
     length = 3000  # or use bounding box from image
     width = 2000
@@ -35,7 +35,7 @@ if __name__ == "__main__":
     target_indices = [0] * len(vehicle_ids)
     
     # Load local targets from JSON
-    with open("C:/ML/IHUBdata/apf/test5/A-hybrid-path-planning-algorithm-based-on-APF-and-Astar/singleAPF/Utility/Cases/Case1/vehicle_localTargets.json") as f:
+    with open("C:/ML/IHUBdata/apf/test5/A-hybrid-path-planning-algorithm-based-on-APF-and-Astar/singleAPF/Utility/Cases/Case2/vehicle_localTargets2.json") as f:
         local_target_data = json.load(f)["vehicles"]
         
     # Create a mapping from vehicle_id to list of targets (local + final)
@@ -88,7 +88,7 @@ if __name__ == "__main__":
     moving_vehicles = []  # Can be updated if needed
     
     print("\n🚗 Vehicle Initialization:\n--------------------------")
-    for i in range(9):
+    for i in range(10):
         print(f"Vehicle {i+1}:")
         print(f"  Rear Start: {rear_positions[i]}")
         print(f"  Front Start: {front_positions[i]}")
@@ -204,18 +204,18 @@ if __name__ == "__main__":
             iteration_text.set_text(f"Iteration: {max(iterations)}")
             
             # Save logs after each iteration
-            apf.save_debug_logs_to_txt("C:/ML/IHUBdata/apf/test5/A-hybrid-path-planning-algorithm-based-on-APF-and-Astar/singleAPF/Results/vehicle_debug_log.txt")
-            print("✅ Saved debug logs to vehicle_debug_log.txt")
+            apf.save_debug_logs_to_txt("C:/ML/IHUBdata/apf/test5/A-hybrid-path-planning-algorithm-based-on-APF-and-Astar/singleAPF/Results/vehicle_debug_log2.txt")
+            print("✅ Saved debug logs to vehicle_debug_log2.txt")
         
     finally:
         # Ensure final logs are saved even if interrupted
-        apf.save_debug_logs_to_txt("C:/ML/IHUBdata/apf/test5/A-hybrid-path-planning-algorithm-based-on-APF-and-Astar/singleAPF/Results/vehicle_debug_log_final.txt")
-        print("✅ Final debug logs saved to vehicle_debug_log_final.txt")
+        apf.save_debug_logs_to_txt("C:/ML/IHUBdata/apf/test5/A-hybrid-path-planning-algorithm-based-on-APF-and-Astar/singleAPF/Results/vehicle_debug_log_final2.txt")
+        print("✅ Final debug logs saved to vehicle_debug_log_final2.txt")
 
     t2 = time.time()
     apf_time = t2 - t1
     
-    for i in range(9):
+    for i in range(10):
         print(f"\n🚘 Vehicle {i + 1} Results:")
         print(f"  🔹 Rear Velocity: {apf.rear_velocities[i]}")
         print(f"  🔹 Total Path: {apf.paths[i]}")
