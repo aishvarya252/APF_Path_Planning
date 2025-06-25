@@ -13,3 +13,6 @@ result/
 *.pyd
 venv/
 __pycache__/
+
+#others
+singleAPF/org_codes/
